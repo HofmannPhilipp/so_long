@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:56:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/07 14:14:04 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:15:45 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(int argc, char *argv[])
 {
+	void	*display;
 	char	**map;
 	if (argc != 2 )
 	{
@@ -21,5 +22,8 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	map = create_map(argv[1]);
+	print_map(map);
+	validate_map(map);
+	display = mlx_init();
 	return (EXIT_SUCCESS);
 }

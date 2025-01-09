@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:56:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/09 11:15:45 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:55:22 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int	main(int argc, char *argv[])
 {
-	void	*display;
 	char	**map;
+	void *mlx_ptr;
+    void *win_ptr;
+    void *image_ptr;
+	int	width;
+	int	height;
+
 	if (argc != 2 )
 	{
 		ft_putstr_fd("Error: Invalid number of arguments. Usage: ./so_long <map_file.ber>", STDERR_FILENO);
@@ -23,7 +28,7 @@ int	main(int argc, char *argv[])
 	}
 	map = create_map(argv[1]);
 	print_map(map);
-	validate_map(map);
-	display = mlx_init();
+	// validate_map(map);
+	
 	return (EXIT_SUCCESS);
 }

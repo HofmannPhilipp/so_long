@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:56:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/09 16:55:22 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:05:40 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 int	main(int argc, char *argv[])
 {
-	char	**map;
-	void *mlx_ptr;
-    void *win_ptr;
-    void *image_ptr;
-	int	width;
-	int	height;
+	t_map	map;
 
 	if (argc != 2 )
 	{
@@ -27,8 +22,7 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	map = create_map(argv[1]);
-	print_map(map);
-	// validate_map(map);
-	
+	// validate_grid(map.grid);
+	render_map(map);
 	return (EXIT_SUCCESS);
 }

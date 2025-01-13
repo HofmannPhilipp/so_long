@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:58:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/10 13:26:46 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:08:43 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_map	create_map(char *path)
 	if (map.grid == NULL)
 		handle_error("Failed ft_split in func crate_map");
 	set_map_dimensions(&map);
+	set_player(&map);
 	return (map);
 }
 
@@ -65,7 +66,26 @@ char	*read_all_lines(int fd)
 	}
 	return (combined_lines);
 }
+void	set_player(t_map *map)
+{
+	int	x;
+	int	y;
 
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
 
-
-
+			if (map->grid[y][x] == 'P')
+			{
+				map->duck.x = x;
+				map->duck.y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}

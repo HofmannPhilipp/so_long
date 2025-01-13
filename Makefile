@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 NAME = so_long
-SRCS = main.c map.c utils.c render.c validation.c
+SRCS = main.c map.c utils.c render.c validation.c game.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = ./libft
@@ -36,6 +36,7 @@ $(LIBFT):
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
+	make -C $(MINILIBX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)

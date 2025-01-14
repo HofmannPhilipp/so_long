@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:03:56 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/09 11:13:58 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/14 09:48:19 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,23 @@ void	print_map(char **map)
 		map++;
 	}
 }
+char	*read_all_lines(int fd)
+{
+	char	*curr_line;
+	char	*combined_lines;
+	char	*temp;
 
+	combined_lines = ft_strdup("");
+	if (combined_lines == NULL)
+		handle_error("Malloc failed in func: read_line");
+	while ((curr_line = get_next_line(fd)) != NULL)
+	{
+		temp = combined_lines;
+		combined_lines = ft_strjoin(combined_lines, curr_line);
+		free(temp);
+		free(curr_line);
+		if (combined_lines == NULL)
+			handle_error("Malloc failed in func: read_line");
+	}
+	return (combined_lines);
+}

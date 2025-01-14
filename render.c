@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:47:46 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/13 14:50:57 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:54:53 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	render_map(void *param)
 {
-	t_data *data = (t_data *)param;
+	t_data *data;
+	
+	data = (t_data *)param;
 	render_ground(*data);
 	render_items(*data);
 	return (0);
@@ -34,12 +36,12 @@ void	render_ground(t_data data)
 	if (!bg_img_ptr)
 		handle_error("could not load image");
 	y = 0;
-	while (y < (data.map.height))
+	while (y < (data.game.height))
 	{
 		x = 0;
-		while (x < (data.map.width))
+		while (x < (data.game.width))
 		{
-			if (data.map.grid[y][x] == '1')
+			if (data.game.map[y][x] == '1')
 				mlx_put_image_to_window(data.mlx, data.window, wall_img_ptr, x * 50, y * 50);
 			else
 				mlx_put_image_to_window(data.mlx, data.window, bg_img_ptr, x * 50, y * 50);
@@ -60,22 +62,27 @@ void	render_items(t_data data)
 	int		x;
 
 	duck = mlx_png_file_to_image(data.mlx, "./img/duck.png", &width, &height);
-	bread = mlx_png_file_to_image(data.mlx, "./img/food/bread.png", &width, &height);
+	bread = mlx_png_file_to_image(data.mlx, "./img/food/cookie.png", &width, &height);
 	toilet = mlx_png_file_to_image(data.mlx, "./img/toilet.png", &width, &height);
 	y = 0;
-	while (y < (data.map.height))
+	while (y < (data.game.height))
 	{
 		x = 0;
-		while (x < (data.map.width))
+		while (x < (data.game.width))
 		{
-			if (data.map.grid[y][x] == 'P')
+			if (data.game.map[y][x] == 'P')
 				mlx_put_image_to_window(data.mlx, data.window, duck, x * 50, y * 50);
-			if (data.map.grid[y][x] == 'E')
+			if (data.game.map[y][x] == 'E')
 				mlx_put_image_to_window(data.mlx, data.window, toilet, x * 50, y * 50);
-			if (data.map.grid[y][x] == 'C')
+			if (data.game.map[y][x] == 'C')
 				mlx_put_image_to_window(data.mlx, data.window, bread, x * 50, y * 50);
 			x++;
 		}
 		y++;
 	}
+}
+
+void	render_victory_screen(t_data data)
+{
+	mlx_string_put(data.mlx, data.window, 100, 100, 0xFFFFFF, "Victory");
 }

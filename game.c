@@ -6,53 +6,78 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 09:07:52 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/13 15:42:05 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:20:26 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+t_game	init_game_state(char *file)
+{
+	t_game	game;
+
+	game.map = create_map(file);
+	set_map_size(&game);
+	set_player(&game);
+	game.moves = 0;
+	return (game);
+}
 
 int	move(int keycode, void *param)
 {
-	t_data *data = (t_data *)param;
+	t_data *data;
+	
+	data = (t_data *)param;
 	if (keycode == KEY_W)
-	{
-		ft_printf("W\n");
-		print_map(data->map.grid);
-		update_map(&(data->map), data->map.duck.x, data->map.duck.y - 1);
-		render_map(param);
-	}
+		update_map(&(data->game), data->game.player.x, data->game.player.y - 1);
 	if (keycode == KEY_S)
-	{
-		ft_printf("S\n");
-		print_map(data->map.grid);
-		update_map(&(data->map), data->map.duck.x, data->map.duck.y + 1);
-		render_map(param);
-	}
+		update_map(&(data->game), data->game.player.x, data->game.player.y + 1);
 	if (keycode == KEY_A)
-	{
-		ft_printf("S\n");
-		print_map(data->map.grid);
-		update_map(&(data->map), data->map.duck.x - 1, data->map.duck.y);
-		render_map(param);
-	}
+		update_map(&(data->game), data->game.player.x - 1, data->game.player.y);
 	if (keycode == KEY_D)
-	{
-		ft_printf("S\n");
-		print_map(data->map.grid);
-		update_map(&(data->map), data->map.duck.x + 1, data->map.duck.y);
-		render_map(param);
-	}
+		update_map(&(data->game), data->game.player.x + 1, data->game.player.y);
+	render_map(param);
+	if (is_game_finished(data->game) == EXIT_SUCCESS)
+		render_victory_screen(*data);
 	return (0);
 }
 
-void	update_map(t_map *map, int x, int y)
+int	is_game_finished(t_game game)
 {
-	if (map->grid[y][x] == '1')
-		return ;
-	map->grid[map->duck.y][map->duck.x] = '0';
-	map->grid[y][x] = 'P';
-	map->duck.y = y;
-	map->duck.x = x;
+	int	y;
+	int	x;
+
+	y = 0;
+	while(y < game.height)
+	{
+		x = 0;
+		while (x < game.width)
+		{
+			if (game.map[y][x] == 'C' || game.map[y][x] == 'E')
+				return (EXIT_FAILURE);
+			x++;
+		}
+		y++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	is_exit_unlocked(t_game game)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while(y < game.height)
+	{
+		x = 0;
+		while (x < game.width)
+		{
+			if (game.map[y][x] == 'C')
+				return (EXIT_FAILURE);
+			x++;
+		}
+		y++;
+	}
+	return (EXIT_SUCCESS);
 }

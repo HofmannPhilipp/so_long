@@ -6,86 +6,54 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:58:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/13 15:08:43 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:23:20 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_map	create_map(char *path)
+char	**create_map(char *path)
 {
 	int		fd;
 	char	*str;
-	t_map	map;
+	char	**map;
 
 	check_file_extension(path, ".ber");
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		handle_error(NULL);
 	str = read_all_lines(fd);
-	map.grid = ft_split(str, '\n');
-	if (map.grid == NULL)
-		handle_error("Failed ft_split in func crate_map");
-	set_map_dimensions(&map);
-	set_player(&map);
+	map= ft_split(str, '\n');
+	if (map == NULL)
+		handle_error("Failed ft_split in func create_map");
 	return (map);
 }
 
-void	set_map_dimensions(t_map *map)
+void	set_map_size(t_game *game)
 {
 	int	height;
 	int	width;
 
 	height = 0;
 	width = 0;
-	while (map->grid[height] != NULL)
+	while (game->map[height] != NULL)
 		height++;
-	while(map->grid[0][width] != '\0')
+	while(game->map[0][width] != '\0')
 		width++;
-	map->height = height;
-	map->width = width;
+	game->height = height;
+	game->width = width;
 }
 
-char	*read_all_lines(int fd)
+void	update_map(t_game *game, int x, int y)
 {
-	char	*curr_line;
-	char	*combined_lines;
-	char	*temp;
-
-	combined_lines = ft_strdup("");
-	if (combined_lines == NULL)
-		handle_error("Malloc failed in func: read_line");
-	while ((curr_line = get_next_line(fd)) != NULL)
-	{
-		temp = combined_lines;
-		combined_lines = ft_strjoin(combined_lines, curr_line);
-		free(temp);
-		free(curr_line);
-		if (combined_lines == NULL)
-			handle_error("Malloc failed in func: read_line");
-	}
-	return (combined_lines);
-}
-void	set_player(t_map *map)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-
-			if (map->grid[y][x] == 'P')
-			{
-				map->duck.x = x;
-				map->duck.y = y;
-				return ;
-			}
-			x++;
-		}
-		y++;
-	}
+	if (game->map[y][x] == '1')
+		return ;
+	if (game->map[y][x] == 'E' && is_exit_unlocked(*game) == EXIT_FAILURE)
+		return ;
+	game->map[game->player.y][game->player.x] = '0';
+	game->map[y][x] = 'P';
+	game->player.y = y;
+	game->player.x = x;
+	game->moves++;
+	ft_printf("moves: %d\n", game->moves);
 }

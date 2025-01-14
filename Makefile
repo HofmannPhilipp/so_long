@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 NAME = so_long
-SRCS = main.c map.c utils.c render.c validation.c game.c
+SRCS = main.c map.c utils.c render.c validation.c game.c player.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = ./libft

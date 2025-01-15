@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:56:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/14 11:19:36 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:37:39 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@ int	main(int argc, char *argv[])
 	}
 	data.game = init_game_state(argv[1]);
 	// validate_grid(map.grid);
-	data.mlx = mlx_init();
+	data.mlx = mlx_init(data.game.width * 50, data.game.height * 50, "Duck saves the world", true);
 	if (!data.mlx)
 		handle_error("failed to init");
-
-	data.window = mlx_new_window(data.mlx, data.game.width * 50, data.game.height * 50, "Duck saves the world");
-	if (!data.window)
-		handle_error("failed to open window");
-	mlx_expose_hook(data.window, render_map, &data);
-	mlx_key_hook(data.window, move, &data);
+	render_map(&data);
+	mlx_close_hook(data.mlx, close_game, &data);
+	mlx_key_hook(data.mlx, handle_keypress, &data);
 	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
 }

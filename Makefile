@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I./mlx/include
 NAME = so_long
 SRCS = main.c map.c utils.c render.c validation.c game.c player.c
 
@@ -7,36 +7,28 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
-MINILIBX_DIR = ./minilibx
-MINILIBX = $(MINILIBX_DIR)/libmlx.dylib
-MINILIBX_FLAGS = -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit -lz
-GREEN = \033[32m
-YELLOW = \033[33m
-NC = \033[0m
+LIBMLX_DIR = ./mlx
+LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
+LIBMLX_FLAGS = -L$(LIBMLX_DIR)/build -lmlx42 -ldl -lglfw -pthread -lm
 
 all: $(NAME)
 
+$(NAME): $(LIBMLX) $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(LIBMLX_FLAGS) -o $(NAME)
 
-$(NAME): $(MINILIBX) $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MINILIBX_FLAGS) -o $(NAME)
-	@install_name_tool -change libmlx.dylib $(MINILIBX_DIR)/libmlx.dylib $(NAME)
-	@echo "$(GREEN)Compiled Successfully 😎$(NC)"
-
-$(MINILIBX):
-	@echo "$(YELLOW)🚧Compiling MINILIBX🚧$(NC)"
-	@make -C $(MINILIBX_DIR)
+$(LIBMLX):
+	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build -j4
 
 $(LIBFT):
-	@echo "$(YELLOW)🚧Compiling LIBFT🚧$(NC)"
 	@make -C $(LIBFT_DIR)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
-	make -C $(MINILIBX_DIR) clean
+	rm -rf $(LIBMLX_DIR)/build
 
 fclean: clean
 	rm -f $(NAME)

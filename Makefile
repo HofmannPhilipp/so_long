@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -I./mlx/include
 NAME = so_long
-SRCS = main.c map.c utils.c render.c validation.c game.c player.c
+SRCS = main.c map.c utils.c render.c validation.c game.c player.c app.c
 
 OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = ./libft
@@ -28,7 +28,7 @@ $(LIBFT):
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
-	rm -rf $(LIBMLX_DIR)/build
+	# rm -rf $(LIBMLX_DIR)/build
 
 fclean: clean
 	rm -f $(NAME)

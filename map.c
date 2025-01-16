@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:58:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/15 15:55:53 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:35:15 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ char	**create_map(char *path)
 	char	*str;
 	char	**map;
 
-	// check_file_extension(path, ".ber");
+	if (check_file_extension(path, ".ber") == EXIT_FAILURE)
+		handle_error("Error\nFile extension must be .ber");
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		handle_error(NULL);
+		handle_error("Error\nFailed to open file");
 	str = read_all_lines(fd);
 	close(fd);
 	map= ft_split(str, '\n');
@@ -46,16 +47,16 @@ void	set_map_size(t_game *game)
 	game->width = width;
 }
 
-// void	update_map(t_game *game, int x, int y)
-// {
-// 	if (game->map[y][x] == '1')
-// 		return ;
-// 	if (game->map[y][x] == 'E' && is_exit_unlocked(*game) == EXIT_FAILURE)
-// 		return ;
-// 	game->map[game->player.y][game->player.x] = '0';
-// 	game->map[y][x] = 'P';
-// 	game->player.y = y;
-// 	game->player.x = x;
-// 	game->moves++;
-// 	ft_printf("moves: %d\n", game->moves);
-// }
+void	update_map(t_game *game, int x, int y)
+{
+	if (game->map[y][x] == '1')
+		return ;
+	if (game->map[y][x] == 'E' && is_exit_unlocked(*game) == EXIT_FAILURE)
+		return ;
+	game->map[game->player.y][game->player.x] = '0';
+	game->map[y][x] = 'P';
+	game->player.y = y;
+	game->player.x = x;
+	game->moves++;
+	ft_printf("moves: %d\n", game->moves);
+}

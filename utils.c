@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:03:56 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/15 15:40:29 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:36:07 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*read_all_lines(int fd)
 
 	combined_lines = ft_strdup("");
 	if (combined_lines == NULL)
-		handle_error("Malloc failed in func: read_line");
+		handle_error("Error\nMalloc failed in func: read_line");
 	while ((curr_line = get_next_line(fd)) != NULL)
 	{
 		temp = combined_lines;
@@ -45,21 +45,10 @@ char	*read_all_lines(int fd)
 		free(temp);
 		free(curr_line);
 		if (combined_lines == NULL)
-			handle_error("Malloc failed in func: read_line");
+			handle_error("Error\nMalloc failed in func: read_line");
 	}
 	return (combined_lines);
 }
-
-// t_img	init_img(void *mlx, char *path)
-// {
-// 	t_img	img;
-
-// 	img.path = path;
-// 	img.img = mlx_png_file_to_image(mlx, path, &img.width, &img.height);
-// 	if (img.img == NULL)
-// 		handle_error("could not load image");
-// 	return (img);
-// }
 
 void	free_map(char **map)
 {

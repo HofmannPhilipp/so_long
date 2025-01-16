@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 09:07:52 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/15 16:26:01 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/16 10:44:48 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,74 +25,71 @@ t_game	init_game_state(char *file)
 
 void	close_game(void *param)
 {
-	t_data *data;
+	t_app *app;
 	
-	data = (t_data *)param;
-	mlx_close_window(data->mlx);
-	free_map(data->game.map);
+	app = (t_app *)param;
+	mlx_close_window(app->mlx);
+	free_map(app->game.map);
 }
 
 void	handle_keypress(mlx_key_data_t keycode, void *param)
 {
-	t_data *data;
+	t_app *app;
 	
-	data = (t_data *)param;
+	app = (t_app *)param;
+	if (keycode.action != MLX_PRESS)
+		return ;
 	if (keycode.key == MLX_KEY_ESCAPE)
 		close_game(param);
-	// if (is_game_finished(data->game) == EXIT_SUCCESS)
-	// 	return (0);
-	// if (keycode.key == MLX_KEY_W)
-	// 	update_map(&(data->game), data->game.player.x, data->game.player.y - 1);
-	// if (keycode.key == MLX_KEY_S)
-	// 	update_map(&(data->game), data->game.player.x, data->game.player.y + 1);
-	// if (keycode.key == MLX_KEY_A)
-	// 	update_map(&(data->game), data->game.player.x - 1, data->game.player.y);
-	// if (keycode.key == MLX_KEY_D)
-	// 	update_map(&(data->game), data->game.player.x + 1, data->game.player.y);
-	// render_map(param);
+	if (is_game_finished(app->game) == EXIT_SUCCESS)
+		return ;
+	if (keycode.key == MLX_KEY_W)
+		update_map(&(app->game), app->game.player.x, app->game.player.y - 1);
+	if (keycode.key == MLX_KEY_S)
+		update_map(&(app->game), app->game.player.x, app->game.player.y + 1);
+	if (keycode.key == MLX_KEY_A)
+		update_map(&(app->game), app->game.player.x - 1, app->game.player.y);
+	if (keycode.key == MLX_KEY_D)
+		update_map(&(app->game), app->game.player.x + 1, app->game.player.y);
+	render_map(param);
 }
 
-// // int	handle_mouseclick(int button, int x, int y, void *param)
-// // {
-	
-// // }
+int	is_game_finished(t_game game)
+{
+	int	y;
+	int	x;
 
-// int	is_game_finished(t_game game)
-// {
-// 	int	y;
-// 	int	x;
+	y = 0;
+	while(y < game.height)
+	{
+		x = 0;
+		while (x < game.width)
+		{
+			if (game.map[y][x] == 'C' || game.map[y][x] == 'E')
+				return (EXIT_FAILURE);
+			x++;
+		}
+		y++;
+	}
+	return (EXIT_SUCCESS);
+}
 
-// 	y = 0;
-// 	while(y < game.height)
-// 	{
-// 		x = 0;
-// 		while (x < game.width)
-// 		{
-// 			if (game.map[y][x] == 'C' || game.map[y][x] == 'E')
-// 				return (EXIT_FAILURE);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
+int	is_exit_unlocked(t_game game)
+{
+	int	y;
+	int	x;
 
-// int	is_exit_unlocked(t_game game)
-// {
-// 	int	y;
-// 	int	x;
-
-// 	y = 0;
-// 	while(y < game.height)
-// 	{
-// 		x = 0;
-// 		while (x < game.width)
-// 		{
-// 			if (game.map[y][x] == 'C')
-// 				return (EXIT_FAILURE);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
+	y = 0;
+	while(y < game.height)
+	{
+		x = 0;
+		while (x < game.width)
+		{
+			if (game.map[y][x] == 'C')
+				return (EXIT_FAILURE);
+			x++;
+		}
+		y++;
+	}
+	return (EXIT_SUCCESS);
+}

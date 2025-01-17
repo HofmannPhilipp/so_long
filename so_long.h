@@ -6,18 +6,22 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:43:21 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/16 15:23:01 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:35:33 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
 # include <stdio.h>
-# include "./libft/libft.h"
-# include "MLX42/MLX42.h"
+# include "libft.h"
+# include "MLX42.h"
+
+typedef struct	s_point
+{
+	int x;
+	int y;
+} t_point;
 
 typedef struct s_textures
 {
@@ -50,13 +54,12 @@ typedef struct s_app
 	t_textures	*textures;
 } t_app;
 
-
 //app
 t_app		init_app(char *map_file);
 t_textures	*init_textures(void *mlx);
 mlx_image_t	*init_image(void *mlx, char *path);
-void	free_textures(void *mlx, t_textures *textures);
-void	free_app(t_app app);
+void		free_textures(void *mlx, t_textures *textures);
+void		free_app(t_app app);
 
 // map
 char		**create_map(char *path);
@@ -79,15 +82,18 @@ void		print_map(char **map);
 void		handle_error(char *error_msg);
 void		free_map(char **map);
 mlx_image_t	*init_image(void *mlx, char *path);
+int			count_component(char **map, char c);
 
 // validation
-void		validate_map(char **map);
+void		validate_map(t_game game);
 int			check_file_extension(char *path, char *extension);
 int			check_for_valid_chars(char **map);
 int			check_walls(char **map);
 int			check_dimensions(char **map);
 int			check_valid_amount_componens(char **map);
-
+void		flood_fill(char **map, t_point coord, int *exit, int *collectible);
+int			check_valid_pathway(t_game game);
+char		**copy_map(t_game game);
 // render
 void		render_map(void	*param);
 void		render_ground(t_app app);

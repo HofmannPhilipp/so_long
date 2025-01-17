@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 09:07:52 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/16 10:44:48 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:50:30 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	close_game(void *param)
 	
 	app = (t_app *)param;
 	mlx_close_window(app->mlx);
-	free_map(app->game.map);
 }
 
 void	handle_keypress(mlx_key_data_t keycode, void *param)
@@ -40,7 +39,10 @@ void	handle_keypress(mlx_key_data_t keycode, void *param)
 	if (keycode.action != MLX_PRESS)
 		return ;
 	if (keycode.key == MLX_KEY_ESCAPE)
+	{
 		close_game(param);
+		return ;
+	}
 	if (is_game_finished(app->game) == EXIT_SUCCESS)
 		return ;
 	if (keycode.key == MLX_KEY_W)

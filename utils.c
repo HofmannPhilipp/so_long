@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:03:56 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/16 15:36:07 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:35:13 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,46 @@ void	free_map(char **map)
 		i++;
 	}
 	free(map);
+}
+
+int	count_component(char **map, char c)
+{
+	int	count;
+	int	i;
+	int	j;
+
+	count = 0;
+	i = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == c)
+				count++;
+			j++;
+		}
+		i++;
+	}
+	return (count);
+}
+
+char	**copy_map(t_game game)
+{
+	char	**new_map;
+	int		i;
+
+	i = 0;
+	new_map = malloc(sizeof(char *) * (game.height + 1));
+	if (!new_map)
+		handle_error("Error\nMalloc failed in func: copy_map");
+	while (game.map[i] != NULL)
+	{
+		new_map[i] = ft_strdup(game.map[i]);
+		if (!new_map[i])
+			handle_error("Error\nMalloc failed in func: copy_map");
+		i++;
+	}
+	new_map[i] = NULL;
+	return (new_map);
 }

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:47:46 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/16 15:19:00 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:04:35 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	render_map(void *param)
 {
 	t_app *app;
 	app = (t_app *)param;
+	free_textures(app->mlx, app->textures);
+	app->textures = init_textures(app->mlx);
 	render_ground(*app);
 	render_items(*app);
 	if (is_game_finished(app->game) == EXIT_SUCCESS)

@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -I./mlx/include
+CFLAGS = -Wall -Werror -Wextra -I./mlx/include/MLX42 -I./libft
 NAME = so_long
 SRCS = main.c map.c utils.c render.c validation.c game.c player.c app.c
 
@@ -17,7 +17,8 @@ $(NAME): $(LIBMLX) $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(LIBMLX_FLAGS) -o $(NAME)
 
 $(LIBMLX):
-	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build -j4
+	git clone https://github.com/codam-coding-college/MLX42.git mlx
+	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
@@ -28,7 +29,7 @@ $(LIBFT):
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
-	# rm -rf $(LIBMLX_DIR)/build
+	rm -rf mlx
 
 fclean: clean
 	rm -f $(NAME)

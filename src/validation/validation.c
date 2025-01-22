@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:58:35 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/21 16:21:23 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:46:41 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,3 @@ void	validate_map(t_game game)
 		handle_error("Map has not valid pathway");
 	}
 }
-
-
-
-
-

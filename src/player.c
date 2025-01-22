@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:46:39 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/14 10:57:54 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:51:50 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	set_player(t_game *game)
 		x = 0;
 		while (x < game->width)
 		{
-
 			if (game->map[y][x] == 'P')
 			{
 				game->player.x = x;

@@ -6,9 +6,9 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -I$(LIBMLX_DIR)/include/MLX42 -I$(LIBFT_DIR) -I./include
 NAME = so_long
 SRCS =	main.c ./src/app.c ./src/events.c ./src/game.c ./src/map.c \
-		./src/player.c ./src/render.c ./src/utils.c ./src/validation.c\
-		# ./src/validation/validation.c ./src/validation/flood_fill.c ./src/validation/file_validation.c \
-		# ./src/validation/map_validation.c
+		./src/player.c ./src/render.c ./src/utils.c \
+		./src/validation/validation.c ./src/validation/flood_fill.c ./src/validation/file_validation.c \
+		./src/validation/map_validation.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -23,7 +23,7 @@ $(LIBMLX):
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-%.o: %.c
+.c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

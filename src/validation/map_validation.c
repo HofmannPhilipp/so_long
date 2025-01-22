@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation_map.c                                   :+:      :+:    :+:   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:20:34 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/21 16:21:19 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:53:42 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	check_valid_amount_componens(char **map)
 	e_count = count_component(map, 'E');
 	p_count = count_component(map, 'P');
 	c_count = count_component(map, 'C');
-	
 	if (e_count > 1 || p_count > 1 || c_count < 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -38,7 +37,8 @@ int	check_for_valid_chars(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'C' && map[i][j] != 'E' && map[i][j] != 'P')
+			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'C'
+				&& map[i][j] != 'E' && map[i][j] != 'P')
 				return (EXIT_FAILURE);
 			j++;
 		}
@@ -73,7 +73,7 @@ int	check_dimensions(char **map)
 {
 	size_t	width;
 	size_t	height;
-	
+
 	width = ft_strlen(*map);
 	height = 0;
 	while (map[height] != NULL)
@@ -86,6 +86,7 @@ int	check_dimensions(char **map)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+
 int	check_valid_pathway(t_game game)
 {
 	int		exit;
@@ -95,9 +96,11 @@ int	check_valid_pathway(t_game game)
 	exit = 0;
 	collectible = 0;
 	copy = copy_map(game);
-	flood_fill(copy, (t_point){game.player.x, game.player.y}, &exit, &collectible);
+	flood_fill(copy, (t_point){game.player.x, game.player.y}, &exit, \
+		&collectible);
 	free_map(copy);
-	if (exit != count_component(game.map, 'E') || collectible != count_component(game.map, 'C'))
+	if (exit != count_component(game.map, 'E')
+		|| collectible != count_component(game.map, 'C'))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

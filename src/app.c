@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:33:45 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/22 08:45:04 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:05:35 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@ t_app	init_app(char *map_file)
 
 	app.game = init_game_state(map_file);
 	validate_map(app.game);
-	app.mlx = mlx_init(app.game.width * 50, app.game.height * 50,
-			"Duck saves the world", false);
+	app.mlx = mlx_init(app.game.width * 50, app.game.height * 50, \
+		"Duck saves the world", false);
 	if (!app.mlx)
 	{
 		free_map(app.game.map);
 		handle_error("Error\nFailed to init mlx");
 	}
-	app.images = init_images(app.mlx);
+	app.images = init_images(app.mlx); // test mit app.images = NULL
 	if (!app.images)
 	{
 		free_app(app);
+		mlx_terminate(app.mlx);
 		handle_error("Error\nFailed to init images");
 	}
 	return (app);
@@ -53,7 +54,7 @@ t_images	*init_images(mlx_t *mlx)
 {
 	t_images	*images;
 
-	images = malloc(sizeof(t_images));
+	images = (t_images *)malloc(sizeof(t_images));
 	if (!images)
 		return (NULL);
 	images->ground = init_image(mlx, "./images/grass.png");
@@ -61,25 +62,25 @@ t_images	*init_images(mlx_t *mlx)
 	images->player = init_image(mlx, "./images/duck.png");
 	images->collectible = init_image(mlx, "./images/food/cookie.png");
 	images->exit = init_image(mlx, "./images/toilet.png");
-	images->victory = mlx_new_image(mlx, mlx->width, mlx->height);
-	if (!images->ground || !images->wall || !images->player
-		|| !images->collectible || !images->exit || !images->victory)
+	images->victory_filter = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!images->ground || !images->wall || !images->player \
+		|| !images->collectible || !images->exit || !images->victory_filter)
 		return (NULL);
 	return (images);
 }
 
 void	free_images(mlx_t *mlx, t_images *images)
 {
-	if (!images || !mlx)
-		return ;
 	mlx_delete_image(mlx, images->ground);
 	mlx_delete_image(mlx, images->wall);
 	mlx_delete_image(mlx, images->player);
 	mlx_delete_image(mlx, images->collectible);
 	mlx_delete_image(mlx, images->exit);
-	mlx_delete_image(mlx, images->victory);
+	mlx_delete_image(mlx, images->victory_filter);
+	mlx_delete_image(mlx, images->victory_text);
 	free(images);
-};
+}
+
 void	free_app(t_app app)
 {
 	free_map(app.game.map);

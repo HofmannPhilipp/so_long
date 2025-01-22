@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:58:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/21 16:44:04 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:32:16 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**create_map(char *path)
 {
 	int		fd;
-	char	*str;
+	char	*combined_lines;
 	char	**map;
 
 	if (check_file_extension(path, ".ber") == EXIT_FAILURE)
@@ -23,11 +23,11 @@ char	**create_map(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		handle_error("Error\nFailed to open file");
-	str = read_all_lines(fd);
+	combined_lines = read_all_lines(fd);
 	close(fd);
-	map= ft_split(str, '\n');
-	free(str);
-	if (map == NULL)
+	map = ft_split(combined_lines, '\n');
+	free(combined_lines);
+	if (!map)
 		handle_error("Failed ft_split in func create_map");
 	return (map);
 }
@@ -41,7 +41,7 @@ void	set_map_size(t_game *game)
 	width = 0;
 	while (game->map[height] != NULL)
 		height++;
-	while(game->map[0][width] != '\0')
+	while (game->map[0][width] != '\0')
 		width++;
 	game->height = height;
 	game->width = width;
@@ -60,12 +60,13 @@ void	update_map(t_game *game, int x, int y)
 	game->moves++;
 	ft_printf("moves: %d\n", game->moves);
 }
+
 void	free_map(char **map)
 {
 	int	i;
 
 	i = 0;
-	while(map[i] != NULL)
+	while (map[i] != NULL)
 	{
 		free(map[i]);
 		i++;

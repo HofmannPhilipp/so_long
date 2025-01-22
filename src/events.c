@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:54:30 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/21 16:37:08 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:54:14 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	handle_keypress(mlx_key_data_t keycode, void *param)
 {
-	t_app *app;
-	
+	t_app	*app;
+
 	app = (t_app *)param;
 	if (keycode.action != MLX_PRESS)
 		return ;
@@ -39,8 +39,8 @@ void	handle_keypress(mlx_key_data_t keycode, void *param)
 
 void	close_game(void *param)
 {
-	t_app *app;
-	
+	t_app	*app;
+
 	app = (t_app *)param;
 	mlx_close_window(app->mlx);
 }

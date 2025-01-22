@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:30:36 by phhofman          #+#    #+#             */
-/*   Updated: 2024/10/21 10:01:07 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:44:15 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_strdup(const char *s1)
 {
 	size_t	len;
 	char	*dup;
-
 
 	if (!s1)
 		return (NULL);

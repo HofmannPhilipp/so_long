@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 09:07:52 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/17 16:59:16 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:32:57 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_game_finished(t_game game)
 	int	x;
 
 	y = 0;
-	while(y < game.height)
+	while (y < game.height)
 	{
 		x = 0;
 		while (x < game.width)
@@ -49,7 +49,7 @@ int	is_exit_unlocked(t_game game)
 	int	x;
 
 	y = 0;
-	while(y < game.height)
+	while (y < game.height)
 	{
 		x = 0;
 		while (x < game.width)

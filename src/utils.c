@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:03:56 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/21 14:07:21 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:30:40 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	print_map(char **map)
 	int	i;
 
 	i = 0;
-	while(map[i] != NULL)
+	while (map[i] != NULL)
 	{
 		ft_printf("%s\n", map[i]);
 		i++;
 	}
 }
+
 char	*read_all_lines(int fd)
 {
 	char	*curr_line;
@@ -36,16 +37,22 @@ char	*read_all_lines(int fd)
 	char	*temp;
 
 	combined_lines = ft_strdup("");
-	if (combined_lines == NULL)
-		handle_error("Error\nMalloc failed in func: read_line");
+	if (!combined_lines)
+	{
+		close(fd);
+		handle_error("Error\nMalloc failed in func: read_all_lines");
+	}
 	while ((curr_line = get_next_line(fd)) != NULL)
 	{
 		temp = combined_lines;
 		combined_lines = ft_strjoin(combined_lines, curr_line);
 		free(temp);
 		free(curr_line);
-		if (combined_lines == NULL)
-			handle_error("Error\nMalloc failed in func: read_line");
+		if (!combined_lines)
+		{
+			close(fd);
+			handle_error("Error\nMalloc failed in func: read_all_lines");
+		}
 	}
 	return (combined_lines);
 }

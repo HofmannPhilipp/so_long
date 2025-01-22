@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 10:56:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/21 17:00:31 by phhofman         ###   ########.fr       */
+/*   Created: 2025/01/21 16:16:34 by phhofman          #+#    #+#             */
+/*   Updated: 2025/01/21 16:42:52 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-int	main(int argc, char *argv[])
+int	check_file_extension(char *path, char *extension)
 {
-	t_app	app;
+	int	i;
+	int	j;
 
-	if (argc != 2 )
+	i = 0;
+	while (path[i] != '\0')
+		i++;
+	j = 0;
+	while (extension[j] != '\0')
+		j++;
+	while (j >= 0)
 	{
-		ft_putstr_fd("Error: Invalid number of arguments. Usage: ./so_long <map_file.ber>", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		if (path[i] != extension[j])
+			return (EXIT_FAILURE);
+		i--;
+		j--;
 	}
-	
-	app = init_app(argv[1]);
-	render_map(&app);
-	mlx_close_hook(app.mlx, close_game, &app);
-	mlx_key_hook(app.mlx, handle_keypress, &app);
-	mlx_loop(app.mlx);
-	free_app(app);
-	mlx_terminate(app.mlx);
 	return (EXIT_SUCCESS);
 }

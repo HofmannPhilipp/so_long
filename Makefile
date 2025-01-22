@@ -1,27 +1,27 @@
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -I./mlx/include/MLX42 -I./libft
-NAME = so_long
-SRCS = main.c map.c utils.c render.c validation.c game.c player.c app.c
-
-OBJS = $(SRCS:.c=.o)
-LIBFT_DIR = ./libft
+LIBFT_DIR = ./lib/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
-LIBMLX_DIR = ./mlx
+LIBMLX_DIR = ./lib/mlx
 LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
-LIBMLX_FLAGS = -L$(LIBMLX_DIR)/build -lmlx42 -ldl -lglfw -pthread -lm
+CC = cc
+CFLAGS = -Wall -Werror -Wextra -I$(LIBMLX_DIR)/include/MLX42 -I$(LIBFT_DIR) -I./include
+NAME = so_long
+SRCS =	main.c ./src/app.c ./src/events.c ./src/game.c ./src/map.c \
+		./src/player.c ./src/render.c ./src/utils.c ./src/validation.c\
+		# ./src/validation/validation.c ./src/validation/flood_fill.c ./src/validation/file_validation.c \
+		# ./src/validation/map_validation.c
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(LIBMLX) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(LIBMLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR)/build -lmlx42 -lglfw -lm -pthread
 
 $(LIBMLX):
-	git clone https://github.com/codam-coding-college/MLX42.git mlx
-	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build
+	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX_DIR)
+	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build 
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -29,7 +29,7 @@ $(LIBFT):
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT_DIR) clean
-	rm -rf mlx
+	rm -rf $(LIBMLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)

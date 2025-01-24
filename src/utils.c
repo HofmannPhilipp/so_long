@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:03:56 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/22 16:30:40 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:12:03 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	handle_error(char *error_msg)
 {
-	perror(error_msg);
+	ft_printf("Error\n");
+	ft_printf("%s", error_msg);
+	// if (errno != 0)
+	// 	perror(NULL);
 	exit(EXIT_FAILURE);
 }
 
@@ -40,9 +43,10 @@ char	*read_all_lines(int fd)
 	if (!combined_lines)
 	{
 		close(fd);
-		handle_error("Error\nMalloc failed in func: read_all_lines");
+		handle_error("Malloc failed in func: read_all_lines");
 	}
-	while ((curr_line = get_next_line(fd)) != NULL)
+	curr_line = get_next_line(fd);
+	while (curr_line != NULL)
 	{
 		temp = combined_lines;
 		combined_lines = ft_strjoin(combined_lines, curr_line);
@@ -51,8 +55,9 @@ char	*read_all_lines(int fd)
 		if (!combined_lines)
 		{
 			close(fd);
-			handle_error("Error\nMalloc failed in func: read_all_lines");
+			handle_error("Malloc failed in func: read_all_lines");
 		}
+		curr_line = get_next_line(fd);
 	}
 	return (combined_lines);
 }
@@ -87,12 +92,12 @@ char	**copy_map(t_game game)
 	i = 0;
 	new_map = malloc(sizeof(char *) * (game.height + 1));
 	if (!new_map)
-		handle_error("Error\nMalloc failed in func: copy_map");
+		handle_error("Malloc failed in func: copy_map");
 	while (game.map[i] != NULL)
 	{
 		new_map[i] = ft_strdup(game.map[i]);
 		if (!new_map[i])
-			handle_error("Error\nMalloc failed in func: copy_map");
+			handle_error("Malloc failed in func: copy_map");
 		i++;
 	}
 	new_map[i] = NULL;

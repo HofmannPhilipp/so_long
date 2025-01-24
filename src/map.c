@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:58:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/22 16:32:16 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:34:20 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	**create_map(char *path)
 	char	**map;
 
 	if (check_file_extension(path, ".ber") == EXIT_FAILURE)
-		handle_error("Error\nFile extension must be .ber");
+		handle_error("File extension must be .ber");
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		handle_error("Error\nFailed to open file");
+		handle_error("Failed to open file");
 	combined_lines = read_all_lines(fd);
 	close(fd);
 	map = ft_split(combined_lines, '\n');

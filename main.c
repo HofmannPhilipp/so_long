@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:56:05 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/22 10:44:58 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:43:12 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("Error: Invalid number of arguments. \
-		Usage: ./so_long <map_file.ber>", STDERR_FILENO);
+		ft_printf("Error\n");
+		ft_printf("Invalid number of arguments.\n");
 		return (EXIT_FAILURE);
 	}
 	app = init_app(argv[1]);

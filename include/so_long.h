@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:43:21 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/22 18:11:21 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:08:09 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "MLX42.h"
 # include "libft.h"
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 
 typedef struct s_point
 {

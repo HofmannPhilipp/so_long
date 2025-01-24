@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:03:56 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/24 14:12:03 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:17:27 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	handle_error(char *error_msg)
 {
 	ft_printf("Error\n");
 	ft_printf("%s", error_msg);
-	// if (errno != 0)
-	// 	perror(NULL);
 	exit(EXIT_FAILURE);
 }
 

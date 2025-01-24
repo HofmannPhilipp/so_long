@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:33:45 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/24 13:25:34 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:15:12 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_app	init_app(char *map_file)
 
 	app.game = init_game_state(map_file);
 	validate_map(app.game);
-	app.mlx = mlx_init(app.game.width * 50, app.game.height * 50, \
-		"Duck saves the world", false);
+	app.mlx = mlx_init(app.game.width * 50, app.game.height * 50,
+			"Duck saves the world", false);
 	if (!app.mlx)
 	{
 		free_map(app.game.map);
@@ -63,7 +63,7 @@ t_images	*init_images(mlx_t *mlx)
 	images->collectible = init_image(mlx, "./images/food/cookie.png");
 	images->exit = init_image(mlx, "./images/toilet.png");
 	images->victory_filter = mlx_new_image(mlx, mlx->width, mlx->height);
-	if (!images->ground || !images->wall || !images->player \
+	if (!images->ground || !images->wall || !images->player
 		|| !images->collectible || !images->exit || !images->victory_filter)
 		return (NULL);
 	return (images);

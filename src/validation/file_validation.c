@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:16:34 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/24 15:46:10 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:15:42 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	check_file_extension(char *path, char *extension)
 {
-	int	i;
-	int	j;
-	char *filename;
+	int		i;
+	int		j;
+	char	*filename;
 
 	filename = ft_strrchr(path, '/');
 	if (!filename)

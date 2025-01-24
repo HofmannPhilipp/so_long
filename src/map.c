@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:58:47 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/24 11:34:20 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:09:48 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**create_map(char *path)
 	if (fd < 0)
 		handle_error("Failed to open file");
 	combined_lines = read_all_lines(fd);
+	if (!combined_lines || combined_lines[0] == '\0')
+		handle_error("Failed read_all_lines in func create_map");
 	close(fd);
 	map = ft_split(combined_lines, '\n');
 	free(combined_lines);

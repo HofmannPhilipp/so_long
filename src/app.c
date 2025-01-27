@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:33:45 by phhofman          #+#    #+#             */
-/*   Updated: 2025/01/24 17:15:12 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/01/27 09:50:27 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_app	init_app(char *map_file)
 		free_map(app.game.map);
 		handle_error("Failed to init mlx\n");
 	}
-	app.images = init_images(app.mlx); // test mit app.images = NULL
+	app.images = init_images(app.mlx);
 	if (!app.images)
 	{
 		free_app(app);
